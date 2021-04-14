@@ -13,7 +13,9 @@
   php artisan serve
   ```
 
-# Getting Know
+NOTA: Se requiere tener una API KEY de Google para usar el servicio de [Procesamiento de Lenguaje Natural](https://cloud.google.com/natural-language/?hl=es) y configurarla dentro de tu propio archivo .env como GOOGLE_KEY
+
+# Getting Know About Laravel
 ## How to install Bootstrap 4 in Laravel
 - Just Like [this](https://www.positronx.io/how-to-properly-install-and-use-bootstrap-in-laravel/)
 
