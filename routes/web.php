@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DrawSmothingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'draw-smothing')->name('draw-smothing');
+
+Route::post('combinations', [DrawSmothingController::class, 'combinate'])->name('combinations.combinate');
+
+// Auth::routes();
