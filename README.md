@@ -13,7 +13,9 @@
   php artisan serve
   ```
 
-
+# Getting Know
+## How to install Bootstrap 4 in Laravel
+- Just Like [this](https://www.positronx.io/how-to-properly-install-and-use-bootstrap-in-laravel/)
 
 # About Laravel
 
