@@ -13,25 +13,32 @@
 </head>
 
 <body>
+
+<div class="jumbotron">
+  <h1 class="display-4">Brandlive!</h1>
+  <p class="lead">Formulario de prueba de programación.</p>
+  <hr class="my-4">    
+</div>
+
 <div class="container">
     <div class="card-group">
     <div class="card">    
     <div class="card-body">
-      <h5 class="card-title">DrawSomthing!</h5>
-      <p class="crd-text">Envía todas las letras y el número de caracteres que conforman la palabra</p>
+      <h3 class="card-title">DrawSomething!</h3>
+      <p class="crd-text">Envía todas las letras y el número de caracteres que conforman la palabra máximo 7 caracteres!</p>
       
         <form action="{{route('combinations.combinate')}}" method="POST">
 
         @csrf
 
         <div class="mb-3">
-            <label for="Letters" class="form-label">Letras</label>
+            <label for="Letters" class="form-label">Carecteres</label>
             <input type="text" class="form-control" name="letters" aria-describedby="letters">
             <div id="letters" class="form-text">Envía todas las letras sin espacios como si fueran una palabra!</div>
         </div>
         <div class="mb-3">
             <label for="charNumber" class="form-label">Número de Caracteres</label>
-            <input type="number" class="form-control" name="charNumber">
+            <input type="number" min="3" max="7" class="form-control" name="charNumber">
         </div>
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" name="justWords">
@@ -44,12 +51,17 @@
   </div>
   <div class="card">    
     <div class="card-body">
-        <h5 class="card-title">Posibles Combinaciones:</h5>
+        <h3 class="card-title">Posibles Combinaciones:</h3>
         <p class="card-text">Estan son todas las combinaciones posibles, si quieres palabras reales únicamente selecciona la opción: <small>Solo Palabras Reales!</small></p>
         <!-- <ul class="list-group list-group-horizontal-sm"> -->
         @foreach($combinations ?? array() as $combination)
             <!-- <li class="list-group-item">{{ $combination }}</li> -->
             <span class="badge bg-light text-dark">{{ $combination }}</span>
+        @endforeach
+        @foreach($errors ?? array() as $error)
+        <div class="alert alert-danger" role="alert">
+            {{ $error }}
+        </div>
         @endforeach
         <!-- </ul> -->
     </div>
