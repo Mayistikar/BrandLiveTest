@@ -16,10 +16,10 @@ class DrawSmothingController extends Controller
         $just_words = $request->justWords;
         // echo $just_words;
         // echo json_encode($request->all());        
-        $this->getCombinations($chars, $size);
-        $combinations = $this->combs;
-        // $combinations = $this->getPermutations($chars, $size);
-        // echo json_encode($combinations);
+        // $this->getCombinations($chars, $size);
+        // $combinations = $this->combs;
+        $combinations = $this->getPermutations($chars, $size);
+        echo json_encode($combinations);
 
         $this->getRealWords(implode(" ",$this->combs));
 
@@ -52,38 +52,43 @@ class DrawSmothingController extends Controller
     {
         $characters_array = str_split($characters);        
         $characters_size = sizeof($characters_array);        
-        return $this->permutationUtil($characters_size, $characters_array);
+        return $this->permutationUtil($characters_array);
     }
 
-    function permutationUtil($characters_size, $characters_array)
+    function permutationUtil($input)
     {
-        if ($characters_size == 1)
+        $miarray = array();
+        $cadena="";
+        //copio el array
+        $temporal=$input;
+        //borro el primer numero del array
+         
+         
+        array_shift($input);
+        //ahora la cuenta esta en que solo quedan 3
+        for($u=0;$u<count($temporal);$u++)
         {
-            echo json_encode($characters_array);
-            return $characters_array;
+            for($i=0;$i<count($input);$i++)
+            { 
+                array_push($input,$input[0]);
+                array_shift($input);
+                for($e=0;$e<count($input);$e++)
+                {
+                    $cadena.=$input[$e];
+                }
+                array_push($miarray,$temporal[$u].$cadena);
+                array_push($miarray,$temporal[$u].strrev($cadena));
+                $cadena="";
+            }
+            array_shift($input);
+            array_push($input,$temporal[$u]);            
         }
-        $this->permutationUtil($characters_size - 1, $characters_array);
-        for ($i = 0; $i < $characters_size; $i++)
-        {
-            if ($characters_size % 2 == 0)
-            {
-                $temp = $characters_array[$i];
-                $characters_array[$i] = $characters_array[$characters_size-1];
-                $characters_array[$characters_size-1] = $temp;                
-            }                
-            else
-            {
-                $temp = $characters_array[0];
-                $characters_array[0] = $characters_array[$characters_size-1];
-                $characters_array[$characters_size-1] = $temp;   
-            }                
-        }
-
+        return $miarray;
     }
 
     private function getRealWords($words)
     {
-        $HTTPresponse = Http::post('https://language.googleapis.com/v1/documents:analyzeSyntax?key=AIzaSyCK4Qe6SkvgTrGfMjDDq2v7cdoDWMOApVc', [
+        $HTTPresponse = Http::post('https://language.googleapis.com/v1/documents:analyzeSyntax?key=', [
             'encodingType' => 'UTF8',
             'document' => [
                 "type" => "PLAIN_TEXT",
